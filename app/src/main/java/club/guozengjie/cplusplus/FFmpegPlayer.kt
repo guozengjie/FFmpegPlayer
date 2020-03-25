@@ -40,7 +40,7 @@ class FFmpegPlayer {
         })
     }
 
-    external fun jniPrepare(url: String)
+    private external fun jniPrepare(url: String)
 
     /**
      * 准备播放
