@@ -6,11 +6,15 @@
 
 extern "C" {
 #include <libavutil/avutil.h>
+#include <libavformat/avformat.h>
 }
 using namespace std;
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_club_guozengjie_cplusplus_FFmpegPlayer_jniPrepare(JNIEnv *env, jobject thiz, jstring url) {
-
+Java_club_guozengjie_cplusplus_FFmpegPlayer_jniPrepare(JNIEnv *env, jobject thiz, jstring jurl) {
+    AVFormatContext *ps;
+    const char * url=env->GetStringUTFChars(jurl, nullptr);
+    avformat_open_input(&ps,url,NULL, nullptr);
+    env->ReleaseStringUTFChars(jurl, url);
 }
