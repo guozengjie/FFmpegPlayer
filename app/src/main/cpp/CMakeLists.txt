@@ -7,7 +7,7 @@ cmake_minimum_required(VERSION 3.4.1)
 
 include_directories(include)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -L${CMAKE_HOME_DIRECTORY}/../jniLibs/${ANDROID_ABI}")
-file(GLOB SOURCE "*.cpp")
+AUX_SOURCE_DIRECTORY(. SOURCE)
 # Creates and names a library, sets it as either STATIC
 # or SHARED, and provides the relative paths to its source code.
 # You can define multiple libraries, and CMake builds them for you.
