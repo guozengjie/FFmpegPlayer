@@ -4,9 +4,11 @@
 # Sets the minimum version of CMake required to build the native library.
 
 cmake_minimum_required(VERSION 3.4.1)
-
+#设置头文件目录
 include_directories(include)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -L${CMAKE_HOME_DIRECTORY}/../jniLibs/${ANDROID_ABI}")
+#设置库文件目录
+link_directories(../jniLibs/${ANDROID_ABI})
+#设置源文件目录
 AUX_SOURCE_DIRECTORY(. SOURCE)
 # Creates and names a library, sets it as either STATIC
 # or SHARED, and provides the relative paths to its source code.
