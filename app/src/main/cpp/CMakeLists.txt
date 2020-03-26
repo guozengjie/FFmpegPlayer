@@ -27,7 +27,7 @@ add_library( # Sets the name of the library.
 
 target_link_libraries( # Specifies the target library.
         native-lib
-        avutil avcodec  avformat  avfilter  swresample swscales
+        avutil avformat avcodec avfilter  swresample swscale
         # Links the target library to the log library
         # included in the NDK.
         log
