@@ -23,6 +23,6 @@ class MainActivity : AppCompatActivity() {
 
     fun start(view: View) {
         Toast.makeText(this, "播放", Toast.LENGTH_LONG).show()
-        player.prepare("https://live-wcloud-cdn.ysp.cctv.cn/tlivecloud-cdn.ysp.cctv.cn/001/2000204602.m3u8")
+        player.prepare("http://cbnlive.cbchot.com/live/yt_chc_h_1.m3u8?123")
     }
 }
