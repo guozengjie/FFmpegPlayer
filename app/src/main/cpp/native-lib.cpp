@@ -16,5 +16,4 @@ Java_club_guozengjie_cplusplus_FFmpegPlayer_jniPrepare(JNIEnv *env, jobject thiz
     const char * url=env->GetStringUTFChars(jurl, nullptr);
     avformat_open_input(&ps,url,nullptr, nullptr);
     env->ReleaseStringUTFChars(jurl, url);
-//    __android_log_print(ANDROID_LOG_ERROR, "FFMPEG", "AAAAAAAAAAAA");
 }
