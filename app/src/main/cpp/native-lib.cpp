@@ -31,6 +31,7 @@ void *task_open_input(void *url) {
     }
     for (int i = 0; i < ps->nb_streams; i++) {
         AVStream *avStream = ps->streams[i];
+        AVCodecParameters *avCodecParameters = avStream->codecpar;
     }
     finish:
     pthread_exit(&pid);
