@@ -32,6 +32,10 @@ void *task_open_input(void *url) {
     for (int i = 0; i < ps->nb_streams; i++) {
         AVStream *avStream = ps->streams[i];
         AVCodecParameters *avCodecParameters = avStream->codecpar;
+        //媒体类型：视频/音频
+        AVMediaType avMediaType = avCodecParameters->codec_type;
+        //编码方式
+        AVCodecID avCodecId = avCodecParameters->codec_id;
     }
     finish:
     pthread_exit(&pid);
