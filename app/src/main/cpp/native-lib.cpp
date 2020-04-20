@@ -26,6 +26,13 @@ void *task_open_input(void *url) {
     } else {
         loge("打开直播源失败");
     }
+    if (ps == nullptr) {
+        goto finish;
+    }
+    for (int i = 0; i < ps->nb_streams; i++) {
+        AVStream *avStream = ps->streams[i];
+    }
+    finish:
     pthread_exit(&pid);
 }
 
