@@ -14,7 +14,7 @@ pthread_t pid;
 
 void *task_open_input(void *url) {
 //    防止url指向的地址内存释放
-    char *dataSource = new char[512];
+    char *dataSource = new char[256];
     strcpy(dataSource, static_cast<const char *>(url));
     __android_log_print(ANDROID_LOG_ERROR, "TAG", "直播源地址%s", dataSource);
     //  打开视频输入流
