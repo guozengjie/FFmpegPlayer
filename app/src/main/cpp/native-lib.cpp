@@ -32,12 +32,23 @@ void *task_open_input(void *url) {
     for (int i = 0; i < ps->nb_streams; i++) {
         AVStream *avStream = ps->streams[i];
         AVCodecParameters *avCodecParameters = avStream->codecpar;
-        //根据编码方式得到解码器
-        AVCodec *avCodec = avcodec_find_decoder(avCodecParameters->codec_id);
-        if (avCodec == nullptr) {
+        //1.根据编码方式得到解码器
+        AVCodec *codec = avcodec_find_decoder(avCodecParameters->codec_id);
+        if (codec == nullptr) {
             loge("获取解码器失败");
         } else {
-            loge("解码器为：%s", avCodec->name);
+            loge("解码器为：%s", codec->name);
+        }
+        //2.编码器上下文
+        AVCodecContext *context = avcodec_alloc_context3(codec);
+        //3.打开解码器
+        if (avcodec_open2(context, codec, nullptr) < 0) {
+            loge("打开解码器失败");
+        }
+        if (avCodecParameters->codec_type == AVMEDIA_TYPE_VIDEO) {
+            loge("视频流");
+        } else if (avCodecParameters->codec_type == AVMEDIA_TYPE_AUDIO) {
+            loge("音频流");
         }
     }
     finish:
