@@ -18,7 +18,7 @@ void *task_open_input(void *url) {
     strcpy(dataSource, static_cast<const char *>(url));
     loge("直播源地址%s", dataSource);
     //  打开视频输入流
-    AVFormatContext *ps= nullptr;
+    AVFormatContext *ps = nullptr;
     int res = avformat_open_input(&ps, dataSource,
                                   nullptr, nullptr);
     if (res == 0) {
@@ -32,10 +32,13 @@ void *task_open_input(void *url) {
     for (int i = 0; i < ps->nb_streams; i++) {
         AVStream *avStream = ps->streams[i];
         AVCodecParameters *avCodecParameters = avStream->codecpar;
-        //媒体类型：视频/音频
-        AVMediaType avMediaType = avCodecParameters->codec_type;
-        //编码方式
-        AVCodecID avCodecId = avCodecParameters->codec_id;
+        //根据编码方式得到解码器
+        AVCodec *avCodec = avcodec_find_decoder(avCodecParameters->codec_id);
+        if (avCodec == nullptr) {
+            loge("获取解码器失败");
+        } else {
+            loge("解码器为：%s", avCodec->name);
+        }
     }
     finish:
     pthread_exit(&pid);
