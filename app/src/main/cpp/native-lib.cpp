@@ -18,7 +18,7 @@ void *task_open_input(void *url) {
     strcpy(dataSource, static_cast<const char *>(url));
     loge("直播源地址%s", dataSource);
     //  打开视频输入流
-    AVFormatContext *ps;
+    AVFormatContext *ps= nullptr;
     int res = avformat_open_input(&ps, dataSource,
                                   nullptr, nullptr);
     if (res == 0) {
