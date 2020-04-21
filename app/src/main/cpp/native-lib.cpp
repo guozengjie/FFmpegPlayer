@@ -3,7 +3,8 @@
 #include <iostream>
 #include <android/log.h>
 #include <pthread.h>
-
+#include "VideoChannel.h"
+#include "AudioChannel.h"
 
 extern "C" {
 #include <libavformat/avformat.h>
@@ -11,11 +12,14 @@ extern "C" {
 using namespace std;
 #define loge(...) __android_log_print(ANDROID_LOG_ERROR, "FFmpeg", __VA_ARGS__)
 pthread_t pid;
+VideoChannel *videoChannel;
+AudioChannel *audioChannel;
 
-void *task_open_input(void *url) {
+void *task_open_input(void *void_url) {
 //    防止url指向的地址内存释放
-    char *dataSource = new char[256];
-    strcpy(dataSource, static_cast<const char *>(url));
+    const char *url = static_cast<const char *>(void_url);
+    char *dataSource = new char[strlen(url)];
+    strcpy(dataSource, url);
     loge("直播源地址%s", dataSource);
     //  打开视频输入流
     AVFormatContext *ps = nullptr;
@@ -47,11 +51,19 @@ void *task_open_input(void *url) {
         }
         if (avCodecParameters->codec_type == AVMEDIA_TYPE_VIDEO) {
             loge("视频流");
+            videoChannel = new VideoChannel;
         } else if (avCodecParameters->codec_type == AVMEDIA_TYPE_AUDIO) {
+            audioChannel = new AudioChannel;
             loge("音频流");
         }
     }
+
     finish:
+    delete dataSource;
+    if (videoChannel != nullptr)
+        delete videoChannel;
+    if (audioChannel != nullptr)
+        delete audioChannel;
     pthread_exit(&pid);
 }
 
