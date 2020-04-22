@@ -1,0 +1,1 @@
+adb logcat | ndk-stack -sym F:\AndroidProjects\CPlusPlus\app\build\intermediates\cmake\debug\obj\x86\libnative-lib.so
